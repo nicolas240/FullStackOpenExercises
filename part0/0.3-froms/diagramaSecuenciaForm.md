@@ -5,7 +5,7 @@ sequenceDiagram
 
     Note left of browser: User fill the form, and submit it.
 
-    browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note; payload: "another test"
+    browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note, payload: "another test"
     activate server
     server-->>browser: Make a new request GET to /exampleapp/notes
     deactivate server

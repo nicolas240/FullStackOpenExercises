@@ -1,23 +1,26 @@
 const App = () => {
   const course = 'Half Stack application development'
-  const part1 = 'Fundamentals of React'
-  const exercices1 = 10
-  const part2 = 'Using props to pass data'
-  const exercices2 = 7
-  const part3 = 'State of a component'
-  const exercices3 = 14
-  const parts =[part1, part2, part3];
-  const exercices=[exercices1,exercices2,exercices3]
-  return (
+  const part1 = {
+    name: 'Fundamentals of React',
+    exercises: 10
+  }
+  const part2 = {
+    name: 'Using props to pass data',
+    exercises: 7
+  }
+  const part3 = {
+    name: 'State of a component',
+    exercises: 14
+  }
+  const parts =[part1,part2,part3]
+  return(
     <>
       <Header course={course}></Header>
       <Content 
-        parts ={parts} exercices={exercices}>
+        parts ={parts}>
       </Content>
       <Total 
-        exercices1={exercices1}
-        exercices2={exercices2}
-        exercices3={exercices3}>
+        parts={parts}>
       </Total>
     </>
   )
@@ -35,16 +38,16 @@ const Content = (props)=>{
   return(
     <>
       <Part 
-        part={props.parts[0]} 
-        exercices={props.exercices[0]}>       
+        part={props.parts[0].name} 
+        exercises={props.parts[0].exercises}>       
       </Part>
       <Part 
-        part={props.parts[1]} 
-        exercices={props.exercices[1]}>       
+        part={props.parts[1].name} 
+        exercises={props.parts[1].exercises}>       
       </Part>
       <Part 
-        part={props.parts[2]} 
-        exercices={props.exercices[2]}>       
+        part={props.parts[2].name} 
+        exercises={props.parts[2].exercises}>       
       </Part>
     </>
   )
@@ -52,26 +55,26 @@ const Content = (props)=>{
 
 const Part =(props)=>{
   return( 
-  <><p>{props.part}  {props.exercices}</p>
+  <><p>{props.part}  {props.exercises}</p>
   </>)
 }
 
 const Total = (props)=>{
   return(
     <>
-      <p> Number of exercices {
-        sumarNumeros(
-          props.exercices1,
-          props.exercices2,
-          props.exercices3
-        )}
+      <p> Number of exercises {
+        sumarNumeros(props.parts)}
       </p>
     </>
   )
 }
 
-const sumarNumeros = (num1,num2,num3) => {
-    return num1+num2+num3;
+const sumarNumeros = (parts) => {
+    let resultado=0
+    parts.forEach(part => {
+      resultado=resultado+part.exercises
+    });
+    return resultado;
 }
 
 export default App

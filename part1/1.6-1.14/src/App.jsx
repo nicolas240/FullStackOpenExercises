@@ -5,29 +5,43 @@ const App = () => {
   const [good, setGood] = useState(0)
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
+  const [all, setAll] = useState(0)
+  const [average, setAverage] = useState(0)
+  const [positive, setPositive] = useState(0)
   const sets ={
     'good': setGood,
     'neutral': setNeutral,
     'bad': setBad
   }
 
-const handleClick =(type)=>{
-  if(type==='good'){
-    return ()=>{
-      sets[type](good+1)
-    }
-  }else if (type==='neutral'){
-    return ()=>{
-      sets[type](neutral+1)
-    }
-  }else{
-    return ()=>{
-      sets[type](bad+1)
-    }
+  const handleClick =(type)=>{
+    let allSum =all+1
+    if(type==='good'){
+      return ()=>{
+        let count =good+1
+        sets[type](count)
+        setAll(allSum)
+        setPositive(count/allSum)
+        setAverage( (count-bad)/allSum )
+      }
+    }else if (type==='neutral'){
+      return ()=>{
+        let count = neutral+1
+        sets[type](count)
+        setAll(allSum)
+        setPositive(good/allSum)
+        setAverage( (good-bad)/allSum )
+      }
+    }else{
+      return ()=>{
+        let count =bad+1
+        sets[type](count)
+        setAll(allSum)
+        setPositive(good/allSum)
+        setAverage( (good-count)/allSum )
+      }
+    }  
   }
-  
-  
-}
 
   return (
     <>
@@ -43,6 +57,9 @@ const handleClick =(type)=>{
       <Statistic count ={good} type='good'></Statistic>
       <Statistic count ={neutral} type='neutral'></Statistic>
       <Statistic count ={bad} type='bad'></Statistic>
+      <Statistic count ={all} type='all'></Statistic>
+      <Statistic count ={average} type='average'></Statistic>
+      <Statistic count ={positive +' %'} type='positive'></Statistic>
     </>
   )
 }

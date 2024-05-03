@@ -8,10 +8,20 @@ const App = () => {
   const [all, setAll] = useState(0)
   const [average, setAverage] = useState(0)
   const [positive, setPositive] = useState(0)
+  
   const sets ={
     'good': setGood,
     'neutral': setNeutral,
     'bad': setBad
+  }
+
+  const states={
+    'good': good,
+    'neutral': neutral,
+    'bad': bad,
+    'all': all,
+    'average': average,
+    'positive': positive
   }
 
   const handleClick =(type)=>{
@@ -43,6 +53,9 @@ const App = () => {
     }  
   }
 
+  const getState = (state)=>{
+    return states[state]
+  }
   return (
     <>
       <div>
@@ -52,17 +65,14 @@ const App = () => {
         <Button handle={handleClick('neutral')} text={'neutral'}></Button>
         <Button handle={handleClick('bad')} text={'bad'}></Button>           
       </div>
-      <StaticsHeader>
-      </StaticsHeader>
-      <Statistic count ={good} type='good'></Statistic>
-      <Statistic count ={neutral} type='neutral'></Statistic>
-      <Statistic count ={bad} type='bad'></Statistic>
-      <Statistic count ={all} type='all'></Statistic>
-      <Statistic count ={average} type='average'></Statistic>
-      <Statistic count ={positive +' %'} type='positive'></Statistic>
+      <div>
+        <Statistics get={getState}>
+        </Statistics>
+      </div>
     </>
   )
 }
+
 //--FeedBack--
 const FeedbackHeader = ()=>{
   return (
@@ -80,11 +90,26 @@ const Button = (props)=>{
   )
 }
 
-//--Statics
+//--Stastistics
 const StaticsHeader=()=>{
   return (
     <>
       <h1>Statistics</h1>
+    </>
+  )
+}
+
+const Statistics = ({get})=>{
+  return (
+    <>
+      <StaticsHeader>
+      </StaticsHeader>
+      <Statistic count ={get('good')} type='good'></Statistic>
+      <Statistic count ={get('neutral')} type='neutral'></Statistic>
+      <Statistic count ={get('bad')} type='bad'></Statistic>
+      <Statistic count ={get('all')} type='all'></Statistic>
+      <Statistic count ={get('average')} type='average'></Statistic>
+      <Statistic count ={get('positive') +' %'} type='positive'></Statistic>
     </>
   )
 }

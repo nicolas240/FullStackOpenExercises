@@ -15,14 +15,14 @@ const App = () => {
     'bad': setBad
   }
 
-  const states={
-    'good': good,
-    'neutral': neutral,
-    'bad': bad,
-    'all': all,
-    'average': average,
-    'positive': positive
-  }
+  const states=[
+    {text:'good', value: good},
+    {text: 'neutral', value: neutral},
+    {text: 'bad', value: bad},
+    {text: 'all', value: all},
+    {text: 'average', value: average},
+    {text: 'positive', value: positive}
+  ]
 
   const handleClick =(type)=>{
     let allSum =all+1
@@ -31,7 +31,7 @@ const App = () => {
         let count =good+1
         sets[type](count)
         setAll(allSum)
-        setPositive(count/allSum)
+        setPositive( count*100/allSum +'%')
         setAverage( (count-bad)/allSum )
       }
     }else if (type==='neutral'){
@@ -39,7 +39,7 @@ const App = () => {
         let count = neutral+1
         sets[type](count)
         setAll(allSum)
-        setPositive(good/allSum)
+        setPositive(good*100/allSum+'%')
         setAverage( (good-bad)/allSum )
       }
     }else{
@@ -47,15 +47,12 @@ const App = () => {
         let count =bad+1
         sets[type](count)
         setAll(allSum)
-        setPositive(good/allSum)
+        setPositive(good*100/allSum+'%')
         setAverage( (good-count)/allSum )
       }
     }  
   }
 
-  const getState = (state)=>{
-    return states[state]
-  }
   return (
     <>
       <div>
@@ -66,7 +63,7 @@ const App = () => {
         <Button handle={handleClick('bad')} text={'bad'}></Button>           
       </div>
       <div>
-        <Statistics get={getState}>
+        <Statistics data={states}>
         </Statistics>
       </div>
     </>
@@ -99,8 +96,14 @@ const StaticsHeader=()=>{
   )
 }
 
-const Statistics = ({get})=>{
-  if (get('all')<1){
+const Statistics = (props)=>{
+  let all
+  props.data.forEach(dato => {
+    if (dato.text==='all'){
+      all=dato.value
+    }
+  });
+  if (all<1){
     return (
       <>
         <StaticsHeader>
@@ -113,22 +116,33 @@ const Statistics = ({get})=>{
       <>
         <StaticsHeader>
         </StaticsHeader>
-        <StatisticLine text='good' value ={get('good')} ></StatisticLine>
-        <StatisticLine text='neutral' value ={get('neutral')}></StatisticLine>
-        <StatisticLine text='bad' value ={get('bad')} ></StatisticLine>
-        <StatisticLine text='all' value ={get('all')} ></StatisticLine>
-        <StatisticLine text='average' value ={get('average')} ></StatisticLine>
-        <StatisticLine text='positive' value ={get('positive')*100 +' %'} ></StatisticLine>
+        <TableStatistics data ={props.data}>
+        </TableStatistics>
       </>
     )
   }
 }
 
-const StatisticLine = (props)=>{
+const TableStatistics = (props)=>{
   return (
-    <p>
-      {props.text} {props.value}
-    </p>
+    <>
+      <table>
+        <thead>
+          <tr>
+            <th>Text</th>
+            <th>Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          {props.data.map((dato, index) => (
+            <tr key={index}>
+              <td>{dato.text}</td>
+              <td>{dato.value}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </>
   )
 }
 

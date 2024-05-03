@@ -113,21 +113,21 @@ const Statistics = ({get})=>{
       <>
         <StaticsHeader>
         </StaticsHeader>
-        <Statistic count ={get('good')} type='good'></Statistic>
-        <Statistic count ={get('neutral')} type='neutral'></Statistic>
-        <Statistic count ={get('bad')} type='bad'></Statistic>
-        <Statistic count ={get('all')} type='all'></Statistic>
-        <Statistic count ={get('average')} type='average'></Statistic>
-        <Statistic count ={get('positive')*100 +' %'} type='positive'></Statistic>
+        <StatisticLine text='good' value ={get('good')} ></StatisticLine>
+        <StatisticLine text='neutral' value ={get('neutral')}></StatisticLine>
+        <StatisticLine text='bad' value ={get('bad')} ></StatisticLine>
+        <StatisticLine text='all' value ={get('all')} ></StatisticLine>
+        <StatisticLine text='average' value ={get('average')} ></StatisticLine>
+        <StatisticLine text='positive' value ={get('positive')*100 +' %'} ></StatisticLine>
       </>
     )
   }
 }
 
-const Statistic = (props)=>{
+const StatisticLine = (props)=>{
   return (
     <p>
-      {props.type} {props.count}
+      {props.text} {props.value}
     </p>
   )
 }

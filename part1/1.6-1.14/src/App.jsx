@@ -100,18 +100,28 @@ const StaticsHeader=()=>{
 }
 
 const Statistics = ({get})=>{
-  return (
-    <>
-      <StaticsHeader>
-      </StaticsHeader>
-      <Statistic count ={get('good')} type='good'></Statistic>
-      <Statistic count ={get('neutral')} type='neutral'></Statistic>
-      <Statistic count ={get('bad')} type='bad'></Statistic>
-      <Statistic count ={get('all')} type='all'></Statistic>
-      <Statistic count ={get('average')} type='average'></Statistic>
-      <Statistic count ={get('positive') +' %'} type='positive'></Statistic>
-    </>
-  )
+  if (get('all')<1){
+    return (
+      <>
+        <StaticsHeader>
+        </StaticsHeader>
+        <p>No feedback given</p>
+      </>
+    )
+  }else{
+    return (
+      <>
+        <StaticsHeader>
+        </StaticsHeader>
+        <Statistic count ={get('good')} type='good'></Statistic>
+        <Statistic count ={get('neutral')} type='neutral'></Statistic>
+        <Statistic count ={get('bad')} type='bad'></Statistic>
+        <Statistic count ={get('all')} type='all'></Statistic>
+        <Statistic count ={get('average')} type='average'></Statistic>
+        <Statistic count ={get('positive')*100 +' %'} type='positive'></Statistic>
+      </>
+    )
+  }
 }
 
 const Statistic = (props)=>{
@@ -121,4 +131,5 @@ const Statistic = (props)=>{
     </p>
   )
 }
+
 export default App

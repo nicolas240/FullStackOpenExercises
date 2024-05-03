@@ -13,6 +13,8 @@ const App = () => {
   ]
 
   const [selected, setSelected] = useState(0)
+  const [best, setBest] =useState({best:0, votes:0})
+
   const [points, setPoints]=useState(Array(8).fill(0))
 
   const changeAnec =()=>{
@@ -21,19 +23,42 @@ const App = () => {
     }
   }
 
-  const handleVote=()=> {  
+  const handleVote=()=> {
     let copy=[...points]
     copy[selected]+=1
     setPoints(copy)
+    console.log(best)
+    console.log(copy[selected])
+    if(copy[selected]>best['votes']){
+      setBest({best:selected,votes:copy[selected]})
+    }
+    console.log(best)
   }
 
   return (
     <div>
-      <p>{anecdotes[selected]}</p>
-      <p>has {points[selected]} votes</p>
+      <Anecdote title={'Anecdote of the day'} 
+        anecdote={anecdotes[selected]} 
+        votes={points[selected]}
+      ></Anecdote>
       <Button handle={()=>handleVote()} text={'vote'}></Button>
       <Button handle={changeAnec()} text={'next anecdote'}></Button>
+      <Anecdote
+        title={'Anecdote with most votes'} 
+        anecdote={anecdotes[best['best']]} 
+        votes={best['votes']}
+      ></Anecdote>
     </div>
+  )
+}
+
+const Anecdote =(props)=>{
+  return(
+    <>
+      <h1>{props.title}</h1>
+      <p>{props.anecdote}</p>
+      <p>has {props.votes} votes</p>
+    </>
   )
 }
 

@@ -1,7 +1,7 @@
 const Header = ({ header }) => <h2>{header}</h2>
 const Person =({person})=>{
   return <>
-    <p>{person.name}</p>
+    <p>{person.name} {person.number}</p>
   </>
 }
 
@@ -12,7 +12,7 @@ const Content = ({ persons }) =>
         <Person key={person.name}
           person={person}
         />
-    )}     
+    )}
   </>
 
 const Numbers = ({ numbers }) => {

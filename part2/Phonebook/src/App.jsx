@@ -11,18 +11,30 @@ const App = () => {
     setNewName(e.target.value)
   }
 
-  const newPerson =(e)=>{
+  const handleSubmit=(e)=>{
     e.preventDefault()
+    if(newName!==''){
+      persons.some( person=>person.name===newName )?
+      showAlert(`${newName} is already added to phonebook`):newPerson()
+    }else{
+      showAlert('Field void')
+    }
+  }
+  const newPerson =()=>{
     const newPerson ={
       name: newName
     }
     setPersons(persons.concat(newPerson))
   }
 
+  const showAlert=(text)=>{
+    alert(text)
+  }
+
   return (
     <div>
       <h2>Phonebook</h2>
-      <form onSubmit={newPerson}>
+      <form onSubmit={handleSubmit}>
         <div>
           name: 
           <input value={newName}

@@ -15,7 +15,7 @@ const Content = ({ persons }) =>
     )}
   </>
 
-const Numbers = ({ numbers }) => {
+const Persons = ({ numbers }) => {
   return (
     <>
       <Header header='Numbers'></Header>
@@ -24,4 +24,4 @@ const Numbers = ({ numbers }) => {
   )
 }
 
-export default Numbers
+export default Persons

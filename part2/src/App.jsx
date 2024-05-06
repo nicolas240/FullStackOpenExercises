@@ -1,5 +1,6 @@
 import Course from "./components/Course"
 
+/* ---  2.5, ya tenia el modulo Course separado*/
 const App = () => {
   const courses = [
     {

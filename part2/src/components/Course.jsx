@@ -8,9 +8,10 @@ const Part = ({ part }) =>
 const Content = ({ parts }) => 
   <>
     {parts.map(
-      part=> <Part key={part.id}
-          part={part}
-      />
+      part=> 
+        <Part key={part.id}
+            part={part}
+        />
     )}     
   </>
 
@@ -19,6 +20,7 @@ const Course = ({ course }) => {
     course.parts.reduce(
       (total, course)=>total+course.exercises,0
     )
+
   return (
     <>
       <Header course={course.name}></Header>
@@ -27,5 +29,5 @@ const Course = ({ course }) => {
     </>
   )
 }
-  
-  export default Course
+
+export default Course

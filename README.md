@@ -1,6 +1,6 @@
 # FullStackOpenExercises
 
-Solutions of fullStackOpen's course exersices
+<h3>Solutions of fullStackOpen's course exersices:</h3>
 
 <pre>
 part0
@@ -26,6 +26,13 @@ part1
   v1.11: unicafe
   v1.14: anecdotes
 part2
+  2.1-2.5
+    2.1: 6e21285265f77d6fe6eb5771c66fe4f8661112b5
+    2.2: 812a27deb379c059c98370eafd35f5d77450afee
+    2.3: 761d143a24a34e0875d6f5fdbec95cc4233bba56
+    2.4: 3c7500b966189e498830de3d04826c21f41734cd
+    2.5: 56d084cd1bf230c3b8b12137082ad563c2b491bb
+  v2.5: Course information
   phonebook
   countries
 part3

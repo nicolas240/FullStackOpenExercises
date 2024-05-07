@@ -39,8 +39,22 @@ useEffect(()=>{
   const handleSubmit=(e)=>{
     e.preventDefault()
     if(newName!=='' & newNumber!==''){
-      persons.some( person=>person.name===newName )?
-      showAlert(`${newName} is already added to phonebook`):newPerson()
+      if(persons.some( person=>person.name===newName )){
+        if(window.confirm(`${newName} is already added to phonebook, replace the old number with a new one`))
+        {
+          let idExisted=persons.filter(p=>p.name===newName)[0].id
+          let newUpdate={
+            id:idExisted,
+            name:newName,
+            number:newNumber
+          }
+          personsService.update(newUpdate.id,newUpdate).then(res=>
+            setPersons(persons.map(p=>p.id===res.id?res:p))
+          )
+        }
+      }else{
+        newPerson()
+      }
     }else{
       showAlert('Empty field')
     }

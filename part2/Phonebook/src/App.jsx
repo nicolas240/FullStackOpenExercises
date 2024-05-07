@@ -29,6 +29,13 @@ useEffect(()=>{
     setFilter(e.target.value)
   }
 
+  const handleDelete=(id)=>{
+    console.log('id::: ', id);
+    personsService.deleteP(id).then(
+      setPersons( persons.filter(p=>p.id!==id))
+    )
+  }
+
   const handleSubmit=(e)=>{
     e.preventDefault()
     if(newName!=='' & newNumber!==''){
@@ -67,9 +74,12 @@ useEffect(()=>{
         newNumber={newNumber}
         handleNumberChange={handleNumberChange}
       />
-      <Persons  numbers={persons.filter(
-        person=> person.name.toLowerCase().includes(filter.toLowerCase())
-      )}/>
+      <Persons  
+        numbers={persons.filter(
+          person=> person.name.toLowerCase().includes(filter.toLowerCase())
+        )}
+        handleDelete={handleDelete}
+      />
     </div>
   )
 }

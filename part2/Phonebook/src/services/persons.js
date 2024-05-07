@@ -13,5 +13,10 @@ const create = newObject => {
 const update = (id, newObject) => {
   return axios.put(`${baseUrl}/${id}`, newObject).then(res=>res.data)
 }
+//--- axios use strings as id's
+const deleteP = id => {
+    return axios.delete(`${baseUrl}/${id}`).then(res=>
+        {res.data})
+}
 //Variables y claves con nombres iguales
-export default {getAll,create,update}
+export default {getAll,create,update,deleteP}

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState, useEffect } from 'react'
 import personsService from './services/persons'
 import Persons from './components/Persons'
@@ -9,7 +10,7 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [filter, setFilter] = useState('')
-  const [messageAction, setMessageAction] = useState(null)
+  const [messageAction, setMessageAction] = useState({mess:null,style:null})
 
   useEffect(()=>{
     personsService.getAll()
@@ -50,12 +51,11 @@ const App = () => {
           }
           personsService.update(newUpdate.id,newUpdate).then(res=>{
             setPersons(persons.map(p=>p.id===res.id?res:p))
-            setMessageAction(newName)
-            setTimeout(()=>{
-              setMessageAction(null)
-              },5000)  
-            }
-          )          
+            handleAlerts(newName)
+          }).catch(error=>{
+            handleAlerts(`Information of ${newName} has already been removed from server`,errorStyle)
+            setPersons(persons.filter(p=>p.id!==idExisted))
+          })        
         }
       }else{
         newPerson()
@@ -64,6 +64,14 @@ const App = () => {
       showAlert('Empty field')
     }
   }
+
+  const handleAlerts=(mess,style=successStyle)=>{
+    setMessageAction({mess,style})
+    setTimeout(()=>{
+      setMessageAction({mess:null,style:null})
+    },5000)
+  }
+
   const newPerson =()=>{
     const newPerson ={
       name: newName,
@@ -72,12 +80,8 @@ const App = () => {
     personsService.create(newPerson)
       .then(res =>{
         setPersons(persons.concat(res))
-        setMessageAction(newName)
-        setTimeout(()=>{
-          setMessageAction(null)
-        },5000)
-      })
-      
+        handleAlerts(newName)
+      })   
   }
   const successStyle={
     color: "green",
@@ -88,16 +92,23 @@ const App = () => {
     padding: 10,
     marginBottom: 10
   }
-
-  const Notification =({message})=>{
-    if (message === null) {
+  const errorStyle={
+    color: "red",
+    background: "lightgrey",
+    fontSize: "20px",
+    borderStyle: "solid",
+    borderRadius: 5,
+    padding: 10,
+    marginBottom: 10
+  }
+  
+  const Notification =({content})=>{
+    if (content['mess'] === null) {
       return null
     }
-    
-
     return (
-      <div style={successStyle}>
-        {message}
+      <div style={content['style']}>
+        {content['mess']}
       </div>
     )
   }
@@ -109,7 +120,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <Notification message ={messageAction}/>
+      <Notification content ={messageAction}/>
       <Filter control={handleFilterChange} filter={filter}
       />
       <h2>Add a new</h2>

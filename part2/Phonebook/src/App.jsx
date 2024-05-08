@@ -9,13 +9,14 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [filter, setFilter] = useState('')
+  const [messageAction, setMessageAction] = useState(null)
 
-useEffect(()=>{
-  personsService.getAll()
-    .then(response => {
-      setPersons(response)
-    })
-},[])
+  useEffect(()=>{
+    personsService.getAll()
+      .then(response => {
+        setPersons(response)
+      })
+  },[])
 
   const handleNameChange =(e)=>{
     setNewName(e.target.value)
@@ -30,7 +31,6 @@ useEffect(()=>{
   }
 
   const handleDelete=(id)=>{
-    console.log('id::: ', id);
     personsService.deleteP(id).then(
       setPersons( persons.filter(p=>p.id!==id))
     )
@@ -48,9 +48,14 @@ useEffect(()=>{
             name:newName,
             number:newNumber
           }
-          personsService.update(newUpdate.id,newUpdate).then(res=>
+          personsService.update(newUpdate.id,newUpdate).then(res=>{
             setPersons(persons.map(p=>p.id===res.id?res:p))
-          )
+            setMessageAction(newName)
+            setTimeout(()=>{
+              setMessageAction(null)
+              },5000)  
+            }
+          )          
         }
       }else{
         newPerson()
@@ -67,8 +72,34 @@ useEffect(()=>{
     personsService.create(newPerson)
       .then(res =>{
         setPersons(persons.concat(res))
+        setMessageAction(newName)
+        setTimeout(()=>{
+          setMessageAction(null)
+        },5000)
       })
-    //setPersons(persons.concat(newPerson))
+      
+  }
+  const successStyle={
+    color: "green",
+    background: "lightgrey",
+    fontSize: "20px",
+    borderStyle: "solid",
+    borderRadius: 5,
+    padding: 10,
+    marginBottom: 10
+  }
+
+  const Notification =({message})=>{
+    if (message === null) {
+      return null
+    }
+    
+
+    return (
+      <div style={successStyle}>
+        {message}
+      </div>
+    )
   }
 
   const showAlert=(text)=>{
@@ -78,6 +109,7 @@ useEffect(()=>{
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message ={messageAction}/>
       <Filter control={handleFilterChange} filter={filter}
       />
       <h2>Add a new</h2>

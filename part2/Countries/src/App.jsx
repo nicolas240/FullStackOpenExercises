@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { useState, useEffect } from 'react'
 import countriesService from './services/countries'
+import weatherService from './services/ninjaApi'
 import Filter from './components/Filter'
 import Country from './components/Country'
 
@@ -8,6 +9,7 @@ const App = () => {
   const [countries, setCountries] = useState([])
   const [countriesFilter, setCountriesFilter] = useState([])
   const [showContries,setShowContries]=useState([])//booleans to show countries
+  const [weatherData,setWeatherData]=useState([])
   const [filter, setFilter] = useState('')
 
   useEffect(()=>{
@@ -33,12 +35,23 @@ const App = () => {
           {length:filtered.length},
           (_,index)=>false)
       )
+      setWeatherData(
+        Array.from(
+          {length:filtered.length},
+          (_,index)=>{})
+      )
     }
   }
 
-  const handleShow =(e,index)=>{
+  const handleShow =(e,index,country,city)=>{
     e.preventDefault()
+    console.log('country,city::: ', country,city);
     setShowContries(showContries.map((c,i)=>i===index?!c:c))
+    weatherService.getWeather(country,city)
+    .then(response => {
+      setWeatherData(weatherData.map((w,i)=>i===index?response:w))
+    })
+    console.log('country,city::: ', country,city);
   }
 
   const getCountriesView=()=>{
@@ -51,10 +64,10 @@ const App = () => {
           return <>
             {countriesFilter.map((c,i)=>
               <div key={c.idd.suffixes[0]}>
-                {c.name.common} <button onClick={(e)=>handleShow(e,i)}>
+                {c.name.common} <button onClick={(e)=>handleShow(e,i,c.name.common,c.capital[0])}>
                   show
                 </button>
-                <Country country={c} show={showContries[i]}/>
+                <Country country={c} show={showContries[i]} weatherData={weatherData[i]}/>
               </div>
             )}
           </>

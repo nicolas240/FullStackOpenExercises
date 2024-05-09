@@ -1,3 +1,4 @@
+import Weather from './Weather'
 const Header = ({ header }) => <h2>{header}</h2>
 const BasicData =(props)=>{
   return <div>
@@ -13,7 +14,8 @@ const BasicData =(props)=>{
   </div>
 }
 
-const Country = ({ country, show=true }) => {
+const Country = ({ country, show=true,weatherData=[]}) => {
+  console.log('weatherData::: ', weatherData);
   return (
     <>
       { show &&
@@ -24,6 +26,9 @@ const Country = ({ country, show=true }) => {
             languages={country.languages}
             flag={country.flags.png}
           ></BasicData>
+          <Weather capital={country.capital[0]}
+              weatherData={weatherData}
+          />
         </div>
       }
     </>

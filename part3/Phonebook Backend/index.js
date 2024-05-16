@@ -61,9 +61,17 @@ app.get('/api/personas/:id', (request, response) => {
 app.get('/api/personas', (request, response) => {
   if (personas) {
       response.json(personas)
-    } else {
+  }else {
       response.status(404).end()
-    }
+  }
+})
+
+app.get('/info', (request, response) => {
+  console.log(request)
+  let message =`<p>
+   Phonebook has info form ${personas.length} people<br> ${Date().toString()}
+  </p>`
+  response.send(message)
 })
 
 /* app.delete('/api/personas/:id', (request, response) => {

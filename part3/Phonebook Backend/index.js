@@ -35,14 +35,29 @@ const generateId = async  () => {
 
 app.post('/api/persons', async (request, response) => {
   const body = request.body
-  let newId = await generateId()
-  const person = {
-    id: newId,
-    name: body.name || null,
-    number: body.number || null
+  let error=''
+  if (!body.name)
+    error= error+' Name empty,'
+  if(!body.number)
+    error= error+' Number empty,'
+  if(persons.some(p=>p.name===body.name)){
+    error=error+' Name already exist,'
   }
-  persons = persons.concat(person)
-  response.json(person)
+  console.log('error::: ', error);
+  if(error!==''){
+    return response.status(400).json({
+      error: `Error: ${error}`
+    })
+  }else{
+    let newId = await generateId()
+    const person = {
+      id: newId,
+      name: body.name || null,
+      number: body.number || null
+    }
+    persons = persons.concat(person)
+    response.json(person)
+  }
 })
 
 app.get('/api/persons/:id', (request, response) => {

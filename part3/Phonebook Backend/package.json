@@ -1,0 +1,31 @@
+{
+  "name": "phonebook-backend",
+  "version": "1.0.0",
+  "description": "part3",
+  "main": "index.js",
+  "scripts": {
+    "nodemon": "nodemon index.js",
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nicolas240/FullStackOpenExercises.git"
+  },
+  "keywords": [
+    "node"
+  ],
+  "author": "Brayan Mendigaño",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nicolas240/FullStackOpenExercises/issues"
+  },
+  "homepage": "https://github.com/nicolas240/FullStackOpenExercises#readme",
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}

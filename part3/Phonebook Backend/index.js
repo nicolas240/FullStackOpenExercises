@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 app.use(express.json())
 
-let personas=[
+let persons=[
   { 
     "id": 1,
     "name": "Arto Hellas", 
@@ -32,35 +32,35 @@ const generateId = () => {
   return maxId + 1
 }
 
-app.post('/api/personas', (request, response) => {
+app.post('/api/persons', (request, response) => {
   const body = request.body
   if (!body.content) {
     return response.status(400).json({ 
       error: 'content missing' 
     })
   }
-  const persona = {
+  const person = {
     content: body.content,
     important: Boolean(body.important) || false,
     id: generateId(),
   }
   notes = notes.concat(note)
   response.json(note)
+})*/
+
+app.get('/api/persons/:id', (request, response) => {
+  const id = Number(request.params.id)
+  const person = persons.find(person => person.id === id)
+  if (person) {
+      response.json(person)
+    } else {
+      response.status(404).end()
+    }
 })
 
-app.get('/api/personas/:id', (request, response) => {
-    const id = Number(request.params.id)
-    const persona = personas.find(persona => persona.id === id)
-    if (persona) {
-        response.json(persona)
-      } else {
-        response.status(404).end()
-      }
-}) */
-
-app.get('/api/personas', (request, response) => {
-  if (personas) {
-      response.json(personas)
+app.get('/api/persons', (request, response) => {
+  if (persons) {
+      response.json(persons)
   }else {
       response.status(404).end()
   }
@@ -69,14 +69,14 @@ app.get('/api/personas', (request, response) => {
 app.get('/info', (request, response) => {
   console.log(request)
   let message =`<p>
-   Phonebook has info form ${personas.length} people<br> ${Date().toString()}
+   Phonebook has info form ${persons.length} people<br> ${Date().toString()}
   </p>`
   response.send(message)
 })
 
-/* app.delete('/api/personas/:id', (request, response) => {
+/* app.delete('/api/persons/:id', (request, response) => {
     const id = Number(request.params.id)
-    personas = personas.filter(persona => persona.id !== id)
+    persons = persons.filter(person => person.id !== id)
     response.status(204).end()
 }) */
 

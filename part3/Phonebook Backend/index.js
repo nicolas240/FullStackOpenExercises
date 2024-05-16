@@ -24,29 +24,26 @@ let persons=[
     "number": "39-23-6423122"
   }
 ]
-/* 
-const generateId = () => {
-  const maxId = notes.length > 0
-    ? Math.max(...notes.map(n => n.id))
-    : 0
-  return maxId + 1
+
+const generateId = async  () => {
+  const newId = Math.floor(Math.random()*10000+1)
+  if(persons.some(p=>p.id===newId))
+    return await generateId()
+  else
+    return newId
 }
 
-app.post('/api/persons', (request, response) => {
+app.post('/api/persons', async (request, response) => {
   const body = request.body
-  if (!body.content) {
-    return response.status(400).json({ 
-      error: 'content missing' 
-    })
-  }
+  let newId = await generateId()
   const person = {
-    content: body.content,
-    important: Boolean(body.important) || false,
-    id: generateId(),
+    id: newId,
+    name: body.name || null,
+    number: body.number || null
   }
-  notes = notes.concat(note)
-  response.json(note)
-})*/
+  persons = persons.concat(person)
+  response.json(person)
+})
 
 app.get('/api/persons/:id', (request, response) => {
   const id = Number(request.params.id)
@@ -67,7 +64,6 @@ app.get('/api/persons', (request, response) => {
 })
 
 app.get('/info', (request, response) => {
-  console.log(request)
   let message =`<p>
    Phonebook has info form ${persons.length} people<br> ${Date().toString()}
   </p>`

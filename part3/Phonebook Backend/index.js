@@ -2,8 +2,22 @@ const express = require('express')
 const morgan = require('morgan')
 const app = express()
 
+morgan.token('post',(req)=>{
+  let message
+  if(req.method==='POST'){
+    let log=Object.fromEntries(
+      Object.entries(req.body).filter(
+        (([key,value])=>key!=='content')
+      )
+    )
+    return JSON.stringify(log)
+  }
+  else
+    return ''
+})
+
 app.use(express.json())
-app.use(morgan('tiny'))
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms :post'))
 
 let persons=[
   { 
@@ -46,7 +60,6 @@ app.post('/api/persons', async (request, response) => {
   if(persons.some(p=>p.name===body.name)){
     error=error+' Name already exist,'
   }
-  console.log('error::: ', error);
   if(error!==''){
     return response.status(400).json({
       error: `Error: ${error}`

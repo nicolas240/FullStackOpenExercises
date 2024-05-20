@@ -1,6 +1,7 @@
 import axios from 'axios'
-const baseUrl = "/api/persons"
-/* 'https://fullstackopenexercises-ekg0.onrender.com/api/persons' */
+const baseUrl = 'https://fullstackopenexercises-ekg0.onrender.com/api/persons'
+//----Proxy:
+/* "/api/persons" */
 
 //----Backend extraido de app.jsx 2.13
 const getAll = () => {

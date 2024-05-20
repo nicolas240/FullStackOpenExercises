@@ -47,9 +47,24 @@ part2
     2.16: 9d2b663c2ad668f1fb28f6a6d4c23a38b4e4b96f
     2.17: f44c98d3cfb70717fd80b6d1093bdb6bdb4c6249
   Countries
-    2.18:
-    2.19:
+    2.18: e58777cdc7031fccb08a23c5ccd6eed88ff09562
+    2.19: e6214a13ab4f0f853c356cca6019526c12ad5ab5
 part3
+  Online page:
+    Link 3.10 Phonebook Backend, step 10:
+      https://fullstackopenexercises-ekg0.onrender.com/
+  Phonebook backend:
+    3.1:  82ba623d6e016edee1c977fdd07bb314af2753d5
+    3.2:  692a0bd0cd5d211c33a4fa582d2522424f134594
+    3.3:  dc62d82da0e1edd9460380b9452b53ec25343dfe
+    3.4:  f0eb24df6ea86b9c1877cc3d6a1c7b9f86ca7315
+    3.5:  7b6db509fbefe12a0a4208b29b1ab5bf94d619da
+    3.6:  258166943196420ef9fcbdc75cc91eb0665f36e9
+    3.7:  1d56693f495b58736f69a3d20a2a7fc0e7ee6da3
+    3.8:  6111c4163bc7602d7a2574ab48e47640c6072fc0
+    3.9:  ba10fe5f6a55f2c34ca047ecd9727cd2e5aa4dbb
+
+
 part4
 part5
 part6

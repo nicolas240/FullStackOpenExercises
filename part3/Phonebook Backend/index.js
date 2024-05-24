@@ -78,9 +78,10 @@ app.get('/api/persons', (request, response) => {
   })  
 })
 
-app.get('/info', (request, response) => {
+app.get('/info', async (request, response) => {
+  let length =await Person.countDocuments()
   let message =`<p>
-   Phonebook has info form ${persons.length} people<br> ${Date().toString()}
+   Phonebook has info form ${length} people<br> ${Date().toString()}
   </p>`
   response.send(message)
 })

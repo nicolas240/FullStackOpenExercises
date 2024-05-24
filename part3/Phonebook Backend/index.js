@@ -117,6 +117,7 @@ const unknownEndpoint = (request, response) => {
 // controlador de solicitudes con endpoint desconocido
 app.use(unknownEndpoint)
 
+//3.16 middleware error handler
 const errorHandler = (error, request, response, next) => {
   console.error(error.message)
   if (error.name === 'CastError') {
@@ -127,6 +128,7 @@ const errorHandler = (error, request, response, next) => {
 
 // este debe ser el último middleware cargado, ¡también todas las rutas deben ser registrada antes que esto!
 app.use(errorHandler)
+
 
 const PORT = process.env.PORT
 app.listen(PORT, () => {

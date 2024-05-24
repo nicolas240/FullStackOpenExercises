@@ -81,7 +81,9 @@ const App = () => {
       .then(res =>{
         setPersons(persons.concat(res))
         handleAlerts(newName)
-      })   
+      }).catch(error=>{
+        handleAlerts(error.response.data.error,errorStyle)
+      }) 
   }
   const successStyle={
     color: "green",

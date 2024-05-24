@@ -33,7 +33,7 @@ const generateId = async  () => {
 }
 
 //post to add person on Phonebook
-app.post('/api/persons', (request, response) => {
+app.post('/api/persons', (request, response, next) => {
   const body = request.body
   let error=''
   if (!body.name)
@@ -45,17 +45,16 @@ app.post('/api/persons', (request, response) => {
       error: `Error: ${error}`
     })
   }else{
-    let newName=body.name
-    let newNumber=body.number
     // create new person
     const person = new Person({
-      content: 'HTML is easy',
-      number: newNumber,
-      name: newName,
+      content: body.content,
+      number: body.number,
+      name: body.name,
     })
     person.save().then(result => {
       response.json(result)
     })
+      .catch(error=>next(error))
   }
 })
 
@@ -96,18 +95,17 @@ app.delete('/api/persons/:id', (request, response, next) => {
 })
 //3.17 put in person
 app.put('/api/persons/:id', (request, response, next) => {
-  const body = request.body
-
-  const person = {
-    content: body.content,
-    number: body.number,
-    name: body.name,
-  }
-  Person.findByIdAndUpdate(request.params.id, person, { new: true })
-    .then(updatedPerson => {
-      response.json(updatedPerson)
-    })
-    .catch(error => next(error))
+  const {content, number, name} = request.body
+  
+  Person.findByIdAndUpdate(
+    request.params.id,
+    {content, number, name},
+    { new: true, runValidatiors: true, context: 'query'}
+  )
+  .then(updatedPerson => {
+    response.json(updatedPerson)
+  })
+  .catch(error => next(error))
 })
 
 
@@ -123,13 +121,17 @@ const errorHandler = (error, request, response, next) => {
   console.error(error.message)
   if (error.name === 'CastError') {
     return response.status(400).send({ error: 'malformatted id' })
+  } else if (error.name === 'ValidationError'){
+    return response.status(400)
+      .json({
+        error: error.message
+      })
   }
   next(error)
 }
 
 // este debe ser el último middleware cargado, ¡también todas las rutas deben ser registrada antes que esto!
 app.use(errorHandler)
-
 
 const PORT = process.env.PORT
 app.listen(PORT, () => {

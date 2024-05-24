@@ -13,9 +13,20 @@ mongoose.connect(url)
     console.log('error connecting to MongoDB:', error.message)
   })
 const personSchema = new mongoose.Schema({
-  content: String,
-  number: String,
-  name: String,
+  content: {// Validación del campo
+    type: String,
+    minLength: 5,
+    required: true
+  },
+  number: {
+    type: String,
+    required: true
+  },
+  name: {
+    type: String,
+    minLength: 3,
+    required: true
+  },
 })
 
 personSchema.set('toJSON', {

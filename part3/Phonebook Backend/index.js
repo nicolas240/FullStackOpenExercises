@@ -32,9 +32,9 @@ const generateId = async  () => {
     return newId
 }
 
+//post to add person on Phonebook
 app.post('/api/persons', (request, response) => {
   const body = request.body
-  
   let error=''
   if (!body.name)
     error= error+' Name empty,'

@@ -49,12 +49,16 @@ const App = () => {
             name:newName,
             number:newNumber
           }
-          personsService.update(newUpdate.id,newUpdate).then(res=>{
-            setPersons(persons.map(p=>p.id===res.id?res:p))
+          personsService.update(newUpdate.id,newUpdate).then( res=>{
+            setPersons(persons.map(p=>p.id===newUpdate.id?newUpdate:p))
             handleAlerts(newName)
           }).catch(error=>{
-            handleAlerts(`Information of ${newName} has already been removed from server`,errorStyle)
-            setPersons(persons.filter(p=>p.id!==idExisted))
+            if(error.response.status===400){
+              handleAlerts(error.response.data.error,errorStyle)
+            }else{
+              handleAlerts(`Information of ${newName} has already been removed from server`,errorStyle)
+              setPersons(persons.filter(p=>p.id!==idExisted))
+            }
           })        
         }
       }else{
@@ -74,6 +78,7 @@ const App = () => {
 
   const newPerson =()=>{
     const newPerson ={
+      content: "html is easy",
       name: newName,
       number: newNumber
     }

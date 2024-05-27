@@ -15,8 +15,10 @@ morgan.token('post',(req)=>{
     )
     return JSON.stringify(log)
   }
-  else
-    return ''
+  if(req.method==='PUT'){
+    return JSON.stringify(req.body)
+  }
+  return ''
 })
 
 app.use(express.json())
@@ -35,27 +37,16 @@ const generateId = async  () => {
 //post to add person on Phonebook
 app.post('/api/persons', (request, response, next) => {
   const body = request.body
-  let error=''
-  if (!body.name)
-    error= error+' Name empty,'
-  if(!body.number)
-    error= error+' Number empty,'
-  if(error!==''){
-    return response.status(400).json({
-      error: `Error: ${error}`
-    })
-  }else{
-    // create new person
-    const person = new Person({
-      content: body.content,
-      number: body.number,
-      name: body.name,
-    })
-    person.save().then(result => {
-      response.json(result)
-    })
-      .catch(error=>next(error))
-  }
+  // create new person
+  const person = new Person({
+    content: body.content,
+    number: body.number,
+    name: body.name,
+  })
+  person.save().then(result => {
+    response.json(result)
+  })
+    .catch(error=>next(error))
 })
 
 app.get('/api/persons/:id', (request, response, next) => {
@@ -94,13 +85,12 @@ app.delete('/api/persons/:id', (request, response, next) => {
   .catch(error => next(error))
 })
 //3.17 put in person
-app.put('/api/persons/:id', (request, response, next) => {
+app.put('/api/persons/:id', async (request, response, next) => {
   const {content, number, name} = request.body
-  
-  Person.findByIdAndUpdate(
-    request.params.id,
+  await Person.findOneAndUpdate(
+    { name: name},
     {content, number, name},
-    { new: true, runValidatiors: true, context: 'query'}
+    {runValidators: true, context: 'query' },
   )
   .then(updatedPerson => {
     response.json(updatedPerson)
@@ -118,7 +108,6 @@ app.use(unknownEndpoint)
 
 //3.16 middleware error handler
 const errorHandler = (error, request, response, next) => {
-  console.error(error.message)
   if (error.name === 'CastError') {
     return response.status(400).send({ error: 'malformatted id' })
   } else if (error.name === 'ValidationError'){

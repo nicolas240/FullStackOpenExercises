@@ -15,11 +15,11 @@ mongoose.connect(url)
 const personSchema = new mongoose.Schema({
   content: {// Validación del campo
     type: String,
-    minLength: [5,'Must be at least 5, got {VALUE}'],
+    minLength: [5,'Must be at least 5 characters long'],
     required: true
   },
   number: {
-    minLength: [8,'Must be at least 8, got {VALUE}'],
+    minLength: [8,'Must be at least 8 characters long'],
     type: String,
     required: [true, 'Number required'],
     validate: {
@@ -31,7 +31,7 @@ const personSchema = new mongoose.Schema({
   },
   name: {
     type: String,
-    minLength: [3,'Must be at least 3, got {VALUE}'],
+    minLength: [3,'Must be at least 3 characters long, got {VALUE}'],
     required: [true, 'Name required']
   },
 })

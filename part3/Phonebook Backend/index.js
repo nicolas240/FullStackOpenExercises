@@ -6,11 +6,10 @@ const app = express()
 const Person = require('./models/person')
 
 morgan.token('post',(req)=>{
-  let message
   if(req.method==='POST'){
     let log=Object.fromEntries(
       Object.entries(req.body).filter(
-        (([key,value])=>key!=='content')
+        (([key])=>key!=='content')
       )
     )
     return JSON.stringify(log)
@@ -25,14 +24,6 @@ app.use(express.json())
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :post'))
 app.use(cors())
 app.use(express.static('dist'))
-
-const generateId = async  () => {
-  const newId = Math.floor(Math.random()*10000+1)
-  if(persons.some(p=>p.id===newId))
-    return await generateId()
-  else
-    return newId
-}
 
 //post to add person on Phonebook
 app.post('/api/persons', (request, response, next) => {
@@ -80,6 +71,7 @@ app.get('/info', async (request, response) => {
 app.delete('/api/persons/:id', (request, response, next) => {
   Person.findByIdAndDelete(request.params.id)
   .then(result => {
+    console.log('result::: ', result);
     response.status(204).end()
   })
   .catch(error => next(error))
@@ -122,6 +114,7 @@ const errorHandler = (error, request, response, next) => {
 // este debe ser el último middleware cargado, ¡también todas las rutas deben ser registrada antes que esto!
 app.use(errorHandler)
 
+// eslint-disable-next-line no-undef
 const PORT = process.env.PORT
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)

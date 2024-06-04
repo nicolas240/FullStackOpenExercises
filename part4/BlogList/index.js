@@ -1,31 +1,23 @@
 const express = require('express')
 const app = express()
 const cors = require('cors')
+const blogsRouter = require('./controllers/blogs')
 const mongoose = require('mongoose')
 const config = require('./utils/config')
+const middleware = require('./utils/middleware')
+const {info, error} = require('./utils/logger')
 const blog = require('./models/blog.js')
 
 app.use(cors())
 app.use(express.json())
+app.use(middleware.requestLogger)
 
-app.get('/api/blogs', (request, response) => {
-  blog
-    .find({})
-    .then(blogs => {
-      response.json(blogs)
-    })
-})
+app.use('/api/blogs', blogsRouter)
 
-app.post('/api/blogs', (request, response) => {
-  const Blog = new blog(request.body)
-  Blog
-    .save()
-    .then(result => {
-      response.status(201).json(result)
-    })
-})
+app.use(middleware.unknownEndpoint)
+app.use(middleware.errorHandler)
 
 const PORT = config.PORT
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`)
+  info(`Server running on port ${PORT}`)
 })

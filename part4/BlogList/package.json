@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon index.js",
     "test": "node --test",
-    "testDummy": "npm test -- ./test/dummy.test.js"
+    "testDummy": "npm test -- ./test/blogs.test.js"
   },
   "author": "Brayan Mendigaño",
   "license": "ISC",

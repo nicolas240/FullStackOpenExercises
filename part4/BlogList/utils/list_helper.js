@@ -17,10 +17,22 @@ const authorLike = (blogs,search)=>{
 
 const titleLike = (blogs,search)=>{
     let filtered = blogs.filter(b=>b.title.toUpperCase().includes(search.toUpperCase()))
-    console.log('filtered::: ', filtered);
     return filtered
 }
 
+const favoriteBlog = (blogs)=>{
+    let favorite = {position:0,likes:0}
+    blogs.forEach((b,i)=>{
+        if(b.likes>favorite.likes)
+            favorite={position:i,likes: b.likes}
+    })
+    return {
+        title: blogs[favorite.position].title,
+        author: blogs[favorite.position].author,
+        likes: blogs[favorite.position].likes
+    }
+}
+
 module.exports = {
-    dummy, totalLikes,authorLike,titleLike
+    dummy, totalLikes, authorLike, titleLike, favoriteBlog
 }

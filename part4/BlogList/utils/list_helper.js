@@ -55,6 +55,33 @@ const mostBlogs = (blogs)=>{
     return max
 }
 
+const mostLikes = (blogs)=>{
+    let filter=[]
+    _.forEach(blogs,// Recore los blogs
+        function(b){
+            let filtered=_.filter(b, //filtra por author y likes
+                (value, key) => 
+                    key==='author'||key==='likes'
+            )
+            let index= _.findIndex(filter,(f)=>f[0]===filtered[0]) // Busca el author dentro de filtrados
+            index!==-1?
+            filter[index][1]=filter[index][1]+filtered[1]:
+            filter.push(filtered)
+        }  
+    )
+    max={
+        author: '',
+        likes: 0
+    }
+    _.forEach(filter,
+        function(f){
+            if(f[1]>max.likes)
+                max={author:f[0],likes:f[1]}
+        }
+    )
+    return max
+}
+
 module.exports = {
-    dummy, totalLikes, authorLike, titleLike, favoriteBlog, mostBlogs
+    dummy, totalLikes, authorLike, titleLike, favoriteBlog, mostBlogs, mostLikes
 }

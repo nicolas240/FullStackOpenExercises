@@ -15,6 +15,10 @@ mongoose.connect(url)
     console.log('error connecting to MongoDB:', error.message)
   })
 const blogSchema = new mongoose.Schema({
+  content: {// Validación del campo
+    type: String,
+    required: true
+  },
   title: String,
   author: String,
   url: String,

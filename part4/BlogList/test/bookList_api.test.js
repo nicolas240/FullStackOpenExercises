@@ -22,8 +22,12 @@ describe('Apli test, supertest',()=>{
       .get('/api/blogs')
       .expect(200)
       .expect('Content-Type', /application\/json/)
-    console.log('res::: ', res);
     assert.strictEqual(res.body.length, helper.initialBlogs.length)
+  })
+  test('Blog identificator format as id', async () => {
+    let newBlog= new Blog(helper.initialBlogs[0])
+    newBlog=newBlog.toJSON()
+    assert('id' in newBlog && newBlog['_id']===undefined, 'Blog identificator is not formated as id')
   })
   /* test('the first blog is about HTTP methods', async () => {
     const response = await api.get('/api/blogs')

@@ -30,7 +30,7 @@ describe('Apli test, supertest',()=>{
     assert('id' in newBlog && newBlog['_id']===undefined, 'Blog identificator is not formated as id')
   })
   
-  test('a valid blog can be added ', async () => {
+  test('A blog can be added by HTTP POST ', async () => {
     const newBlog = {
       content: 'async/await simplifies making async calls',
       title: 'Prueba0',

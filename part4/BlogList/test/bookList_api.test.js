@@ -28,8 +28,7 @@ describe('Apli test, supertest',()=>{
     let newBlog= new Blog(helper.initialBlogs[0])
     newBlog=newBlog.toJSON()
     assert('id' in newBlog && newBlog['_id']===undefined, 'Blog identificator is not formated as id')
-  })
-  
+  })  
   test('A blog can be added by HTTP POST ', async () => {
     const newBlog = {
       content: 'async/await simplifies making async calls',
@@ -50,6 +49,18 @@ describe('Apli test, supertest',()=>{
   
     const contents = blogsAtEnd.map(n => n.content)
     assert(contents.includes('async/await simplifies making async calls'))
+  })
+  test('Blog request without likes', async () => {
+    const newBlog = {
+      content: 'async/await simplifies making async calls',
+      title: 'Prueba3',
+      author: 'Carlos3',
+      url: 'Prueba3.com',
+    }
+    let blogSaved=new Blog(newBlog)
+    await blogSaved.save()
+    await blogSaved.deleteOne()
+    assert(blogSaved['likes']===0, 'Blog likes in 0 by default')
   })
   /*test('the first blog is about HTTP methods', async () => {
     const response = await api.get('/api/blogs')

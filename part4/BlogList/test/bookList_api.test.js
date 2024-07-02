@@ -29,11 +29,7 @@ describe('Apli test, supertest',()=>{
     newBlog=newBlog.toJSON()
     assert('id' in newBlog && newBlog['_id']===undefined, 'Blog identificator is not formated as id')
   })
-  /* test('the first blog is about HTTP methods', async () => {
-    const response = await api.get('/api/blogs')
-    const contents = response.body.map(e => e.content)
-    assert(contents.includes('HTML is easy'))
-  })
+  
   test('a valid blog can be added ', async () => {
     const newBlog = {
       content: 'async/await simplifies making async calls',
@@ -54,6 +50,11 @@ describe('Apli test, supertest',()=>{
   
     const contents = blogsAtEnd.map(n => n.content)
     assert(contents.includes('async/await simplifies making async calls'))
+  })
+  /*test('the first blog is about HTTP methods', async () => {
+    const response = await api.get('/api/blogs')
+    const contents = response.body.map(e => e.content)
+    assert(contents.includes('HTML is easy'))
   })
   test('blog without content is not added', async () => {
     const newBlog = {

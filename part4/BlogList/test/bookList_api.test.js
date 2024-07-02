@@ -62,14 +62,9 @@ describe('Apli test, supertest',()=>{
     await blogSaved.deleteOne()
     assert(blogSaved['likes']===0, 'Blog likes in 0 by default')
   })
-  /*test('the first blog is about HTTP methods', async () => {
-    const response = await api.get('/api/blogs')
-    const contents = response.body.map(e => e.content)
-    assert(contents.includes('HTML is easy'))
-  })
-  test('blog without content is not added', async () => {
-    const newBlog = {
-      title: 'Prueba0',
+  test('Endpoint post without title or url', async () => {
+    // without title
+    let newBlog = {
       author: 'Carlos0',
       url: 'Prueba0.com',
       likes: 0
@@ -78,10 +73,34 @@ describe('Apli test, supertest',()=>{
       .post('/api/blogs')
       .send(newBlog)
       .expect(400)
-  
+    // without url
+    newBlog = {
+      title: 'Prueba0',
+      author: 'Carlos0',
+      likes: 0
+    }
+    await api
+      .post('/api/blogs')
+      .send(newBlog)
+      .expect(400)
+    // without both
+    newBlog = {
+      author: 'Carlos0',
+      likes: 0
+    }
+    await api
+      .post('/api/blogs')
+      .send(newBlog)
+      .expect(400)
+    
     const blogsAtEnd = await helper.blogsInDb()
     assert.strictEqual(blogsAtEnd.length,
       helper.initialBlogs.length)
+  })
+  /*test('the first blog is about HTTP methods', async () => {
+    const response = await api.get('/api/blogs')
+    const contents = response.body.map(e => e.content)
+    assert(contents.includes('HTML is easy'))
   })
   test('a specific blog can be viewed', async () => {
     const blogsAtStart = await helper.blogsInDb()

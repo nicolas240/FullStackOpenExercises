@@ -111,7 +111,6 @@ describe('Apli test, deleting single records',()=>{
   })
   test('a blog can be deleted', async () => {
     const blogsAtStart = await helper.blogsInDb()
-    console.log('blogsAtStart::: ', blogsAtStart);
     const blogToDelete = blogsAtStart[0]
   
     await api
@@ -124,6 +123,35 @@ describe('Apli test, deleting single records',()=>{
     assert.strictEqual(blogsAtEnd.length, helper.initialBlogs.length - 1)
   })
 })
+
+describe('Apli test, putting single records',()=>{
+  beforeEach(async () => {
+    await Blog.deleteMany({})
+    const blogObjects = helper.initialBlogs
+      .map(blog=> new Blog(blog))
+    const promiseArray = blogObjects.map(blog => blog.save())
+    await Promise.all(promiseArray)
+  })
+  test('Likes of a publication can be updated', async () => {
+    const blogsAtStart = await helper.blogsInDb()
+    const blogToUpdate = blogsAtStart[0]
+    const newBlog = {
+      content: blogToUpdate.content,
+      title: blogToUpdate.title,
+      author: blogToUpdate.author,
+      url: blogToUpdate.url,
+      likes: blogToUpdate.likes+1,
+    }
+    await api
+      .put(`/api/blogs/${blogToUpdate.id}`)
+      .send(newBlog)
+      .expect(200)
+      .expect('Content-Type', /application\/json/)
+    const blogsAtEnd = await helper.blogsInDb()
+    assert.strictEqual(blogsAtEnd[0].likes, helper.initialBlogs[1].likes+1)
+  })
+})
+
 after(async () => {
   await mongoose.connection.close()
 })

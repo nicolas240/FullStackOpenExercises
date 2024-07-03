@@ -6,17 +6,14 @@ blogsRouter.get('/', async (request, response) => {
     response.json(blogs)   
 })
 
-/* blogsRouter.put('/:id', async (request, response) => {
-  const body = request.body
-
-  const blog = {
-    content: body.content,
-    important: body.important,
-  }
-
-  const updatedNote = await Blog.findByIdAndUpdate(request.params.id, blog, { new: true })
-  response.json(updatedNote)
-}) */
+blogsRouter.put('/:id', async (request, response) => {
+  const body = request.body 
+  const updatedBlog = await Blog.findByIdAndUpdate(
+    request.params.id,
+    body,
+     { new: true })
+  response.json(updatedBlog)
+})
 
 blogsRouter.post('/', async (request, response, next) => {
   const body = request.body

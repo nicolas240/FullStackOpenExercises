@@ -5,7 +5,7 @@ mongoose.set('strictQuery',false)
 // eslint-disable-next-line no-undef
 const url = config.MONGODB_URI
 console.log('config.MONGODB_URI::: ', config.MONGODB_URI);
-console.log('connecting to', url)
+console.log('connecting to Users Schema', url)
 
 mongoose.connect(url)
   .then(()=> {
@@ -14,28 +14,21 @@ mongoose.connect(url)
   .catch(error => {
     console.log('error connecting to MongoDB:', error.message)
   })
-const blogSchema = new mongoose.Schema({
-  content: {// Validación del campo
+const userSchema = new mongoose.Schema({
+  username: {
     type: String,
-    required: true
+    required: true,
+    unique: true // esto asegura la unicidad de username
   },
-  title: {// Validación del campo
-    type: String,
-    required: true
-  },
-  author: String,
-  url: {// Validación del campo
-    type: String,
-    required: true
-  },
-  likes: {type: Number, default: 0},
-  user:{
+  name: String,
+  passwordHash: String,
+  blogs:[{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
-  }
+    ref:'Blog'
+  }],
 })
 
-blogSchema.set('toJSON', {
+userSchema.set('toJSON', {
   transform: (document, returnedObject) => {
     returnedObject.id = returnedObject._id.toString()
     delete returnedObject._id
@@ -43,4 +36,4 @@ blogSchema.set('toJSON', {
   }
 })
 
-module.exports = mongoose.model('Blog', blogSchema)
+module.exports = mongoose.model('User', userSchema)

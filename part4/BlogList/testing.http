@@ -1,0 +1,36 @@
+
+GET http://localhost:3002/api/blogs
+###
+
+POST http://localhost:3002/api/blogs HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RpbmcxIiwiaWQiOiI2NzJjZWY0NzMwOWI2OWI3N2MyODBkMTAiLCJpYXQiOjE3MzEyOTc4OTh9.hJHB24drgYKo-EVCiQo8Aj0ea4JIamBeNulpqfSIyn8
+
+{
+    "title":"Test # 2",
+    "content": "testing again",
+    "author": "Carlos0",
+    "url": "Prueba0.com",
+    "likes": 0,
+    "userId":"672cef47309b69b77c280d10"
+}
+
+###
+GET http://localhost:3002/api/users
+###
+POST http://localhost:3002/api/users HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "testing2",
+    "name": "Qa2",
+    "password":"qa2"
+}
+###
+POST http://localhost:3002/api/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "testing1",
+    "password":"qa1"
+}

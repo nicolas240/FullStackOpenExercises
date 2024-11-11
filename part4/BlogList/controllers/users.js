@@ -6,6 +6,7 @@ const User = require('../models/user')
 usersRouter.post('/', async (request, response) => {
   const {username,name,password} = request.body
   
+  //using bcrupt for exersice 4.15:
   const saltRounds = 10
   const passwordHash = await bcrypt.hash(password,saltRounds)
 
@@ -29,6 +30,7 @@ usersRouter.get('/', async (request, response) => {
         likes: 1
       }
     )
+  //fin 4.15
   response.json(users)
 })
 

@@ -18,7 +18,7 @@ const userSchema = new mongoose.Schema({
   username: {
     type: String,
     required: true,
-    unique: true // esto asegura la unicidad de username
+    unique: true // esto asegura la unicidad de username, ya que mongoose no proporciona una manera directa
   },
   name: String,
   passwordHash: String,
@@ -33,6 +33,8 @@ userSchema.set('toJSON', {
     returnedObject.id = returnedObject._id.toString()
     delete returnedObject._id
     delete returnedObject.__v
+    // Se borra el hash del password
+    delete returnedObject.passwordHash
   }
 })
 

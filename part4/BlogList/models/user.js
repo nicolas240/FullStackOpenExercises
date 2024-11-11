@@ -18,7 +18,8 @@ const userSchema = new mongoose.Schema({
   username: {
     type: String,
     required: true,
-    unique: true // esto asegura la unicidad de username, ya que mongoose no proporciona una manera directa
+    unique: true, // esto asegura la unicidad de username, ya que mongoose no proporciona una manera directa
+    minLength:3 //4.16
   },
   name: String,
   passwordHash: String,

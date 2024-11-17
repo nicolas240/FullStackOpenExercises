@@ -11,20 +11,19 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc
     "content": "testing again",
     "author": "Carlos0",
     "url": "Prueba0.com",
-    "likes": 0,
-    "userId":"672cef47309b69b77c280d10"
+    "likes": 0
 }
 
-###
+### "userId":"672cef47309b69b77c280d10"
 GET http://localhost:3002/api/users
 ###
 POST http://localhost:3002/api/users HTTP/1.1
 Content-Type: application/json
 
 {
-    "username": "testing2",
+    "username": "pssadws",
     "name": "Qa2",
-    "password":"qa2"
+    "password":"qa"
 }
 ###
 POST http://localhost:3002/api/login HTTP/1.1

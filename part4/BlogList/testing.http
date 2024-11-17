@@ -25,11 +25,11 @@ Content-Type: application/json
     "name": "Qa2",
     "password":"qa"
 }
-###
+### Testing 4.18
 POST http://localhost:3002/api/login HTTP/1.1
 Content-Type: application/json
 
 {
-    "username": "testing1",
-    "password":"qa1"
+    "username": "testing2",
+    "password":"qa2"
 }

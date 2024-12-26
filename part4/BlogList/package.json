@@ -7,12 +7,14 @@
     "start": "cross-env NODE_ENV=production node index.js",
     "dev": "cross-env NODE_ENV=development nodemon index.js",
     "test": "cross-env  NODE_ENV=test node --test",
-    "testDummy": "npm test -- ./test/blogs.test.js",
-    "only": "npm test -- ./test/users_api.test.js"
+    "testDummy": "npm test -- ./test/bookList_api.test.js",
+    "blogs": "npm test -- ./test/bookList_api.test.js",
+    "users": "npm test -- ./test/users_api.test.js"
   },
   "author": "Brayan Mendigaño",
   "license": "ISC",
   "dependencies": {
+    "axios": "^1.7.7",
     "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",

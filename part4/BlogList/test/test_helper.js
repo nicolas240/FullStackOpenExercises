@@ -7,7 +7,7 @@ const initialBlogs = [
       title: 'Prueba1',
       author: 'Carlos1',
       url: 'Prueba1.com',
-      likes: 1  
+      likes: 1
     },
     {
       content: 'Browser can execute only JavaScript',
@@ -17,6 +17,16 @@ const initialBlogs = [
       likes: 2
     }
   ]
+
+const userTest =[
+  {
+    username: "tester",
+    name: "tester1",
+    passwordHash: '$2b$10$mks5A7XXGLpnJ14ojbGqYuz7zIYpgD4kByhyJ2PkhWbjRcncmDwvy' //123 
+  }
+]
+
+let token = undefined
 
 const nonExistingId = async () => {
   const blog = new Blog({ content: 'willremovethissoon' })
@@ -36,5 +46,5 @@ const usersInDb = async () => {
 }
 
 module.exports = {
-  initialBlogs, nonExistingId, blogsInDb, usersInDb
+  initialBlogs,userTest,token, nonExistingId, blogsInDb, usersInDb
 }

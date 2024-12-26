@@ -6,12 +6,11 @@ GET http://localhost:3002/api/blogs/673969c59b3684db5cfc8fb9
 ###
 POST http://localhost:3002/api/blogs HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RpbmcyIiwiaWQiOiI2NzMxODgzMmQwMDEzZjZhNjc1YzUwN2IiLCJpYXQiOjE3MzE5MDE0MTksImV4cCI6MTczMTkwNTAxOX0.9yyqinjL4TGWOW1wbp1y7Qzgrfl5Ca6jvF1wUPkatWs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RlciIsImlkIjoiNjc2OWM4MGNjNjAwMTQ1YzVmN2VkMzI3IiwiaWF0IjoxNzM0OTg2NTMxLCJleHAiOjE3MzQ5OTAxMzF9.p2SzkuYksnse-ncPtKU4VZQvQaOxQZcxWvXwrg_uXmc
 
 {
-    "title":"Test # 3",
     "content": "testing again 2",
-    "author": "Carlos 0",
+    "author": "Carlos0",
     "url": "Prueba0.com",
     "likes": 0
 }
@@ -23,25 +22,25 @@ POST http://localhost:3002/api/users HTTP/1.1
 Content-Type: application/json
 
 {
-    "username": "pssadws",
-    "name": "Qa2",
-    "password":"qa"
+    "username": "tester",
+    "name": "tester1",
+    "password":"123"
 }
 ### Testing 4.18
 POST http://localhost:3002/api/login HTTP/1.1
 Content-Type: application/json
 
 {
-    "username": "testing2",
-    "password":"qa2"
+    "username":"tester",
+    "password":"123"
 }
 
 ### Deleting
 
 ###
-DELETE http://localhost:3002/api/blogs/668d9d5b9962da87c81fa487 HTTP/1.1
+DELETE http://localhost:3002/api/blogs/673c11953a7387ea7703e469 HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RpbmcyIiwiaWQiOiI2NzMxODgzMmQwMDEzZjZhNjc1YzUwN2IiLCJpYXQiOjE3MzE5MDI1MDEsImV4cCI6MTczMTkwNjEwMX0.paqKNMUI9i3cONnnfJ3q15uSF3mPT4EWXp8nCQYkQrs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RpbmcyIiwiaWQiOiI2NzMxODgzMmQwMDEzZjZhNjc1YzUwN2IiLCJpYXQiOjE3MzE5ODk0MTEsImV4cCI6MTczMTk5MzAxMX0.X2sjD_ifKaQVV06YCd4SXMBqz-8eYSFf1FGiJ0AGvj8
 
 
 ### 
